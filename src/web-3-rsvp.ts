@@ -1,9 +1,9 @@
 import { Address, ipfs, json } from "@graphprotocol/graph-ts";
 import {
   ConfirmedAttendee,
-  DepositsPaidOut,
   NewEventCreated,
-  NewRSVP
+  NewRSVP,
+  DepositsPaidOut,
 } from "../generated/Web3RSVP/Web3RSVP"
 import { Account, RSVP, Confirmation, Event } from "../generated/schema";
 import { integer } from "@protofire/subgraph-toolkit";
@@ -74,14 +74,17 @@ function getOrCreateAccount(address: Address): Account {
 }
 
 export function handleNewRSVP(event: NewRSVP): void {
-  let newRSVP = RSVP.load(event.transaction.from.toHex());
+  let id = event.params.eventID.toHex() + event.params.attendeeAddress.toHex();
+  let newRSVP = RSVP.load(id);
   let account = getOrCreateAccount(event.params.attendeeAddress);
   let thisEvent = Event.load(event.params.eventID.toHex());
   if (newRSVP == null && thisEvent != null) {
-    newRSVP = new RSVP(event.transaction.from.toHex());
+    newRSVP = new RSVP(id);
     newRSVP.attendee = account.id;
     newRSVP.event = thisEvent.id;
     newRSVP.save();
+    thisEvent.totalRSVPs = integer.increment(thisEvent.totalRSVPs);
+    thisEvent.save();
     account.totalRSVPs = integer.increment(account.totalRSVPs);
     account.save();
   }
