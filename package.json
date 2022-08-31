@@ -1,18 +1,21 @@
 {
-  "name": "wbw3-events-dapp",
+  "name": "anotherwbw3rsvp",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ n44ts/wbw3-events-dapp",
-    "create-local": "graph create --node http://localhost:8020/ n44ts/wbw3-events-dapp",
-    "remove-local": "graph remove --node http://localhost:8020/ n44ts/wbw3-events-dapp",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 n44ts/wbw3-events-dapp",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ snackalie/anotherwbw3rsvp",
+    "create-local": "graph create --node http://localhost:8020/ snackalie/anotherwbw3rsvp",
+    "remove-local": "graph remove --node http://localhost:8020/ snackalie/anotherwbw3rsvp",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 snackalie/anotherwbw3rsvp",
     "test": "graph test"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.33.0",
-    "@graphprotocol/graph-ts": "0.27.0"
+    "@graphprotocol/graph-ts": "0.27.0",
+    "@protofire/subgraph-toolkit": "^0.1.2"
   },
-  "devDependencies": { "matchstick-as": "0.5.0" }
+  "devDependencies": {
+    "matchstick-as": "0.5.0"
+  }
 }
